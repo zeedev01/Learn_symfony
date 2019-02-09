@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ 'Login'|trans }}</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ path('login') }}">
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error.messageKey|trans(error.messageData) }}
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label for="_name" class="col-md-4 control-label">{{ 'label.username'|trans}}</label>
+
+                                <div class="col-md-6">
+                                    <input id="_name" type=text class="form-control" name="_name" value="{{ last_username }}" placeholder="username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="_password" class="col-md-4 control-label">{{ 'label.password'|trans }}</label>
+                                <div class="col-md-6">
+                                    <input id="_password" type="password" class="form-control" name="_password" placeholder="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                    <button type="submit" class="btn btn-primary">{{ 'submit.login'|trans }}</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                            <input type="checkbox" id="remember_me" name="_remember_me" />
+                             <label for="remember_me">Keep me logged in</label>
+                            </div>
+                        </div>
+                        <form action="{{ path('register') }}">
+                            <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-btn fa-user"></i> {{ 'Register' | trans }}
+                                </button>
+                            </div>
+                        </form>
+                        <br>
+                              <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'de'})) }}" >de</a>
+                                <a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'}))}}" >en</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

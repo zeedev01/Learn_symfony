@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-success">
+                    <div class="panel-heading">List of Game of Thrones Characters</div>
+
+                    {% if app.user != null %}
+                                <div class="panel panel-success">
+                                    <p>{{ 'panel.welcome'|trans }} {{ app.user.name }}</p>
+                                </div>
+                        <table class="table">
+                            <tr>
+                                <th>{{ 'table.Character' | trans  }}</th>
+                                <th>{{ 'table.Real Name' |trans }}</th>
+                            </tr>
+
+                            {% for key, item in list %}
+                                <tr>
+                                    <td>{{ key }}</td><td>{{ item }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <br>
+                        <form class="well-lg" name="ajax-demo" id="ajax-demo">
+                            <div class="control-group">
+                                <label class="control-label" for="book">Book</label>
+                                <div class="controls">
+                                    <input type="text" id="book">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <a href="{{ path('logout') }}" class="btn btn-info"> logout >></a>
+                        <a href="{{ path('edit') }}" class="btn btn-info">edit page</a>
+                    {% endif %}
+
+                </div>
+
+                {% if app.user == null %}
+                    <a href="{{ path('login') }}" class="btn btn-info"> You need to login to see the list >></a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
